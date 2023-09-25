@@ -1,0 +1,55 @@
+firewall-cmd --permanent --add-port=10250/tcp
+
+systemctl start firewalld
+systemctl enable firewalld
+
+## In the Rancher high-availability installation instructions, the Rancher server is set up on three nodes that have all three Kubernetes roles: etcd, controlplane, and worker. 
+## If your Rancher server nodes have all three roles, run the following commands on each node:
+
+firewall-cmd --permanent --add-port=22/tcp
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --add-port=443/tcp
+firewall-cmd --permanent --add-port=2376/tcp
+firewall-cmd --permanent --add-port=2379/tcp
+firewall-cmd --permanent --add-port=2380/tcp
+firewall-cmd --permanent --add-port=6443/tcp
+firewall-cmd --permanent --add-port=8472/udp
+firewall-cmd --permanent --add-port=9099/tcp
+firewall-cmd --permanent --add-port=10250/tcp
+firewall-cmd --permanent --add-port=10254/tcp
+firewall-cmd --permanent --add-port=30000-32767/tcp
+firewall-cmd --permanent --add-port=30000-32767/udp
+
+# For etcd nodes, run the following commands:
+firewall-cmd --permanent --add-port=2376/tcp
+firewall-cmd --permanent --add-port=2379/tcp
+firewall-cmd --permanent --add-port=2380/tcp
+firewall-cmd --permanent --add-port=8472/udp
+firewall-cmd --permanent --add-port=9099/tcp
+firewall-cmd --permanent --add-port=10250/tcp
+
+# For control plane nodes, run the following commands:
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --add-port=443/tcp
+firewall-cmd --permanent --add-port=2376/tcp
+firewall-cmd --permanent --add-port=6443/tcp
+firewall-cmd --permanent --add-port=8472/udp
+firewall-cmd --permanent --add-port=9099/tcp
+firewall-cmd --permanent --add-port=10250/tcp
+firewall-cmd --permanent --add-port=10254/tcp
+firewall-cmd --permanent --add-port=30000-32767/tcp
+firewall-cmd --permanent --add-port=30000-32767/udp
+
+# For worker nodes, run the following commands:
+firewall-cmd --permanent --add-port=22/tcp
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --add-port=443/tcp
+firewall-cmd --permanent --add-port=2376/tcp
+firewall-cmd --permanent --add-port=8472/udp
+firewall-cmd --permanent --add-port=9099/tcp
+firewall-cmd --permanent --add-port=10250/tcp
+firewall-cmd --permanent --add-port=10254/tcp
+firewall-cmd --permanent --add-port=30000-32767/tcp
+firewall-cmd --permanent --add-port=30000-32767/udp
+
+firewall-cmd --reload

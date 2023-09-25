@@ -1,0 +1,34 @@
+apiVersion: v1
+data:
+  url: https://argod1.kendopz.com
+  dex.config: |
+    connectors:
+    - type: ldap
+      name: txaddc01.kendopz.com
+      id: ldap
+      config:
+        # Ldap server address
+        host: "txaddc01.kendopz.com:636"
+          #host: "txaddc01.kendopz.com:389"
+        insecureNoSSL: true
+        insecureSkipVerify: true
+        # Variable name stores ldap bindDN in argocd-secret
+        bindDN: "VMADMIN,CN=Users,DC=kendopz,DC=com"
+        # Variable name stores ldap bind password in argocd-secret
+        bindPW: "Password1"
+        usernamePrompt: Username
+        # Ldap user search attributes
+        userSearch:
+          baseDN: "ou=users,dc=kendopz,dc=com"
+          filter: ""
+          username: uid
+          idAttr: uid
+          emailAttr: mail
+          nameAttr: displayName
+        # Ldap group search attributes
+        groupSearch:
+          baseDN: "ou=groups,dc=kendopz,dc=com"
+          filter: "(objectClass=groupOfNames)"
+          userAttr: DN
+          groupAttr: member
+          nameAttr: cn

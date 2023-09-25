@@ -1,0 +1,1 @@
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].{InstanceName:Tags[?Key==Name] | [0].Value,PublicIPAddress:PublicIpAddress,ElasticIPAddress:ElasticIpAddress,PublicDnsName:PublicDnsName,InstanceID:InstanceId,InstanceType:InstanceType,InstanceState:State.Name,SubnetID:SubnetId,VPCID:VpcId}' --output table
